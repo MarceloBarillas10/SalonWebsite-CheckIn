@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vanity Salon</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Outfit:wght@100;200;300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="bg-layer"></div>
+
+    <!-- Step dots -->
+    <div class="steps" id="stepDots">
+      <div class="step-dot active" id="dot1"></div>
+      <div class="step-dot" id="dot2"></div>
+      <div class="step-dot" id="dot3"></div>
+      <div class="step-dot" id="dot4"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+       PAGE 1 — Hero
+  ════════════════════════════════════════ -->
+    <div class="page active" id="page1">
+      <div class="hero-layout">
+        <div>
+          <img
+            class="logo-img"
+            src="media/Vanity Logo.webp"
+            alt="Vanity Salon Logo"
+          />
+          <p class="logo-sub">Dueño de tu imagen</p>
+        </div>
+        <div class="hero-divider"></div>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="btn-checkin">Check In</button>
+          <button class="btn btn-secondary" id="btn-signup">
+            Sin membresía — Regístrate
+          </button>
+        </div>
+      </div>
+      <!-- Manager login button — outside all pages so it's always visible -->
+      <button class="btn-manager-login" id="btn-manager-login">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+        </svg>
+        Manager
+      </button>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+       Manager Button
+  ════════════════════════════════════════ -->
+
+    <!-- Pin Modal -->
+
+    <div
+      class="pin-overlay"
+      id="pin-overlay"
+      aria-modal="true"
+      role="dialog"
+      aria-label="Manager PIN"
+    >
+      <div class="pin-modal">
+        <p class="pin-title">Acceso Manager</p>
+        <p class="pin-sub">Ingresa tu PIN de 4 dígitos</p>
+
+        <div class="pin-dots" id="pin-dots">
+          <span class="pin-dot" id="pd0"></span>
+          <span class="pin-dot" id="pd1"></span>
+          <span class="pin-dot" id="pd2"></span>
+          <span class="pin-dot" id="pd3"></span>
+        </div>
+
+        <p class="pin-error" id="pin-error"></p>
+
+        <div class="pin-grid">
+          <button class="pin-key" data-val="1">1</button>
+          <button class="pin-key" data-val="2">2</button>
+          <button class="pin-key" data-val="3">3</button>
+          <button class="pin-key" data-val="4">4</button>
+          <button class="pin-key" data-val="5">5</button>
+          <button class="pin-key" data-val="6">6</button>
+          <button class="pin-key" data-val="7">7</button>
+          <button class="pin-key" data-val="8">8</button>
+          <button class="pin-key" data-val="9">9</button>
+          <button class="pin-key pin-key--cancel" id="pin-cancel">✕</button>
+          <button class="pin-key" data-val="0">0</button>
+          <button class="pin-key pin-key--del" id="pin-del">⌫</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+       PAGE 2 — Check In Form
+  ════════════════════════════════════════ -->
+    <div class="page" id="page2">
+      <div class="container">
+        <p class="page-title">Check In</p>
+        <p class="page-sub">Confirma tu visita</p>
+        <div class="rule"></div>
+
+        <div class="field">
+          <label for="ci-name">Nombre completo</label>
+          <input
+            type="text"
+            id="ci-name"
+            placeholder="Tu nombre completo"
+            autocomplete="off"
+          />
+        </div>
+        <div class="field">
+          <label for="ci-contact-email">Email</label>
+          <input
+            type="text"
+            id="ci-contact-email"
+            placeholder="email@ejemplo.com"
+            autocomplete="off"
+          />
+        </div>
+        <div class="field">
+          <label for="ci-contact-telephone">Teléfono</label>
+          <input
+            type="text"
+            id="ci-contact-telephone"
+            placeholder="787-555-0000"
+            autocomplete="off"
+            maxlength="12"
+          />
+        </div>
+
+        <button class="btn btn-primary" id="checkinBtn">
+          Confirmar Check In
+        </button>
+        <button class="btn btn-back" id="btn-back-checkin">Volver</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+       PAGE 4 — Thank You (Check In)
+  ════════════════════════════════════════ -->
+    <div class="page" id="page4">
+      <div class="container">
+        <div class="thankyou-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" /></svg>
+        </div>
+        <p class="thankyou-name">¡Bienvenido!</p>
+        <p class="thankyou-detail" id="ty-checkin-msg">
+          Hemos registrado tu visita.<br />
+          Un miembro del equipo estará contigo en breve.
+        </p>
+        <button class="btn btn-primary" id="btn-home-checkin">
+          Volver al Inicio
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+       PAGE 3 — Membership Selection
+  ════════════════════════════════════════ -->
+    <div class="page" id="page3">
+      <div class="container">
+        <p class="page-title">Membresía</p>
+        <p class="page-sub">Escoge tu plan</p>
+        <div class="rule"></div>
+
+        <div class="field">
+          <label for="su-name">Nombre completo</label>
+          <input
+            type="text"
+            id="su-name"
+            placeholder="Tu nombre completo"
+            autocomplete="off"
+          />
+        </div>
+        <div class="field">
+          <label for="su-contact-email">Email</label>
+          <input
+            type="text"
+            id="su-contact-email"
+            placeholder="email@ejemplo.com"
+            autocomplete="off"
+          />
+        </div>
+        <div class="field">
+          <label for="su-contact-telephone">Teléfono</label>
+          <input
+            type="text"
+            id="su-contact-telephone"
+            placeholder="787-555-0000"
+            autocomplete="off"
+            maxlength="12"
+          />
+        </div>
+
+        <div class="membership-grid">
+          <div class="membership-card" data-months="1" data-price="70">
+            <div class="membership-card-left">
+              <div class="membership-months">1 Mes</div>
+              <div class="membership-note">4 Cortes</div>
+            </div>
+            <div class="membership-price">$70</div>
+            <span class="membership-badge">Seleccionado ✓</span>
+          </div>
+          <div class="membership-card" data-months="2" data-price="100">
+            <div class="membership-card-left">
+              <div class="membership-months">2 Meses</div>
+              <div class="membership-note">6 Cortes — Ahorra $40</div>
+            </div>
+            <div class="membership-price">$100</div>
+            <span class="membership-badge">Seleccionado ✓</span>
+          </div>
+          <div class="membership-card" data-months="3" data-price="140">
+            <div class="membership-card-left">
+              <div class="membership-months">3 Meses</div>
+              <div class="membership-note">
+                10 Cortes, Mejor valor — ahorra $70
+              </div>
+            </div>
+            <div class="membership-price">$140</div>
+            <span class="membership-badge">Seleccionado ✓</span>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" id="confirmBtn" disabled>
+          Confirmar Membresía
+        </button>
+        <button class="btn btn-back" id="btn-back-signup">Volver</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+       PAGE 5 — Thank You (Membership)
+  ════════════════════════════════════════ -->
+    <div class="page" id="page5">
+      <div class="container">
+        <div class="thankyou-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" /></svg>
+        </div>
+        <p class="thankyou-name">¡Gracias!</p>
+        <p class="thankyou-detail" id="ty-membership-msg">
+          Tu membresía ha sido registrada.<br />
+          Por favor habla con el equipo en recepción para completar el pago.
+        </p>
+        <button class="btn btn-primary" id="btn-home-membership">
+          Volver al Inicio
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+       That's all for the HTML — rest is in app.js
+  ════════════════════════════════════════ -->
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

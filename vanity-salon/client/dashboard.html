@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vanity — Dashboard</title>
+  <script>
+    // Forces Chrome to skip bfcache for this page entirely
+    window.addEventListener('unload', () => {});
+
+    window.addEventListener('pageshow', async (e) => {
+      if (e.persisted) {
+        document.documentElement.style.visibility = 'hidden';
+        const res = await fetch('/api/auth/check', { cache: 'no-store' });
+        if (!res.ok) {
+          window.location.replace('/');
+        } else {
+          document.documentElement.style.visibility = '';
+        }
+      }
+    });
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Outfit:wght@100;200;300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/dashboard_styles.css" />
+</head><body>
+<div class="shell">
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <span class="topbar-logo">Vanity</span>
+    <span style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.05em;">Dashboard</span>
+    <span class="topbar-sep"></span>
+    <span class="topbar-date" id="topbar-date"></span>
+  </header>
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <span class="sidebar-label">General</span>
+    <div class="nav-item active" data-route="overview"><span class="nav-icon">▦</span> Overview</div>
+    <!-- <div class="nav-item" data-route="members"><span class="nav-icon">👤</span> Miembros</div> -->
+    <!-- <span class="sidebar-label">Operaciones</span>
+    <div class="nav-item" data-route="checkin"><span class="nav-icon">✂</span> Check In</div>
+    <div class="nav-item" data-route="memberships"><span class="nav-icon">📋</span> Membresías</div>
+    <div class="nav-item" data-route="usage"><span class="nav-icon">📊</span> Uso</div> -->
+    <div style="margin-top: 50px; padding: 0 0 8px;">
+    <div class="nav-item" id="btn-back-main" data-route="Salir"><span class="nav-icon">←</span> Regresar a Check-In</div>
+    </div>
+
+  </nav>
+
+  <!-- Main -->
+  <main class="main">
+
+    <div class="page-header">
+      <h1 class="page-title">Bienvenidos</h1>
+      <span class="page-sub" id="subtitle">cargando...</span>
+    </div>
+
+    <!-- Stat cards -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Ingresos Totales</div>
+        <div class="stat-value loading" id="stat-revenue">—</div>
+        <div class="stat-hint">membresías activas</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Miembros</div>
+        <div class="stat-value loading" id="stat-members">—</div>
+        <div class="stat-hint">con membresía activa</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Visitas Totales</div>
+        <div class="stat-value loading" id="stat-visits">—</div>
+        <div class="stat-hint">créditos utilizados</div>
+      </div>
+    </div>
+
+    <!-- Content grid -->
+    <div class="content-grid">
+
+      <!-- Members table -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Miembros</span>
+          <span class="panel-badge" id="members-count">— registros</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Contacto</th>
+                <th>Plan</th>
+                <th>Próx. Renovación</th>
+                <th>Créditos</th>
+                <th>Visitas</th>
+              </tr>
+            </thead>
+            <tbody id="members-tbody">
+              <tr><td colspan="6" class="table-empty">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Membership breakdown -->
+      <div class="panel right-panel">
+        <div class="panel-header">
+          <span class="panel-title">Por Plan</span>
+        </div>
+        <table class="breakdown-table">
+          <thead>
+            <tr>
+              <th>Plan</th>
+              <th>Miembros</th>
+              <th>Ingresos</th>
+            </tr>
+          </thead>
+          <tbody id="breakdown-tbody">
+            <tr><td colspan="3" class="table-empty">Cargando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+</div>
+<script type="module" src="dashboard.js"></script>
+
+  <script>
+    // Runs on every restore from bfcache (forward/back button)
+    window.addEventListener('pageshow', async (e) => {
+      if (e.persisted) {
+        const res = await fetch('/api/auth/check', { cache: 'no-store' });
+        if (!res.ok) {
+          document.documentElement.style.display = 'none';
+          window.location.replace('/');
+        }
+      }
+    });
+  </script>
+</body>
+</html>
